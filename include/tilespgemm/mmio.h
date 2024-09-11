@@ -1022,11 +1022,6 @@ int mm_read_unsymmetric_sparse(const char *fname, int *M_, int *N_, int *nz_,
     }
 
 
-
-
-
-
-
     if ( !(mm_is_real(matcode) && mm_is_matrix(matcode) &&
 
             mm_is_sparse(matcode)))

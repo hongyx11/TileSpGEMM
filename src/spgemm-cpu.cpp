@@ -1,4 +1,5 @@
-#include "common.h"
+#include "tilespgemm/common.h"
+#include "tilespgemm/utils.hpp"
 
 void step1(int *blkrowptrA, int *blkcolidxA, int blkmA, int blknA,
            int *blkcolptrB, int *blkrowidxB, int blkmB, int blknB,

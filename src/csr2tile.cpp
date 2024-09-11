@@ -1,10 +1,12 @@
-#include "common.h"
-#include "utils.h"
+#include "tilespgemm/common.h"
+#include "tilespgemm/utils.hpp"
+#include "tilespgemm/csr2tile.hpp"
+#include <omp.h>
+
 
 /*    STEP1: Calculate the number of non-empty tile of a sparse matrix   */
 /*           Record the offset of tiles in each tile row                 */
 void step1_kernel(SMatrix *matrix)
-
 {
     int *rowpointer = matrix->rowpointer;
     int m = matrix->m;

@@ -1,5 +1,15 @@
-#ifndef _SPGEMM_CUDA_NSPARSE_KERNEL_
-#define _SPGEMM_CUDA_NSPARSE_KERNEL_
+#include <cuda.h>
+#include "tilespgemm/common.h"
+#include "tilespgemm/nsparse_asm.cuh"
+#include "tilespgemm/utils_cuda_scan.cuh"
+#include "tilespgemm/spgemm_nsparse_kernel.cuh"
+
+#include <thrust/device_malloc.h>
+#include <thrust/device_free.h>
+#include <thrust/device_vector.h>
+#include <thrust/execution_policy.h>
+#include <thrust/device_ptr.h>
+#include <thrust/scan.h>
 
 #define WARP 32
 #define BIN_NUM 7
@@ -13,34 +23,11 @@
 #define IMB_SH_SIZE 1024
 #define B_SH_SIZE 512
 
-#include "common.h"
-
-#include <cuda.h>
-//#include <helper_cuda.h>
-
-//#include <nsparse.h>
-#include "nsparse_asm.h"
-#include "utils_cuda_scan.h"
-
 /* SpGEMM Specific Parameters */
 #define HASH_SCAL 107 // Set disjoint number to COMP_SH_SIZE
 #define ONSTREAM
 
 #define div_round_up(a, b) ((a % b == 0)? a / b : a / b + 1)
-
-/* Structure for SpGEMM */
-typedef struct {
-    cudaStream_t *stream;
-    int *bin_size;
-    int *bin_offset;
-    int *d_bin_size;
-    int *d_bin_offset;
-    int *d_row_nz;
-    int *d_row_perm;
-    int max_intprod;
-    int max_nz;
-    int *d_max;
-} sfBIN;
 
 void init_bin(sfBIN *bin, int M)
 {
@@ -1437,4 +1424,3 @@ void calculate_value_col_bin(int *d_arpt, int *d_acol, real *d_aval,
   cudaThreadSynchronize();
 }
 
-#endif

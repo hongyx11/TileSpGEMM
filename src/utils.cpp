@@ -1,7 +1,5 @@
-#ifndef _UTILS_
-#define _UTILS_
-
-#include "common.h"
+#include "tilespgemm/common.h"
+#include "tilespgemm/utils.hpp"
 
 void binary_search_right_boundary_item_kernel(const MAT_PTR_TYPE *row_pointer, 
                                               const MAT_PTR_TYPE  key_input, 
@@ -194,4 +192,3 @@ void matrix_transposition(const int           m,
     free (cscColIncr);
 }
 
-#endif

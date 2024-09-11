@@ -1,3 +1,5 @@
+#ifndef COMMON_H
+#define COMMON_H
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,9 +14,8 @@
 #include <omp.h>
 
 #include <sys/time.h>
-#include "cuda_fp16.h"
+// #include "cuda_fp16.h"
 
-#include "utils.h"
 
 #ifndef MAT_VAL_TYPE
 #define MAT_VAL_TYPE double
@@ -138,3 +139,4 @@ typedef struct
 }SMatrix;
 #endif
 
+#endif // COMMON_H

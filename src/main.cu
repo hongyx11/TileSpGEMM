@@ -1,24 +1,24 @@
-#include"common.h"
-#include"mmio_highlevel.h"
-#include"utils.h"
-#include"utils_cuda_scan.h"
-#include "spgemm_nsparse_kernel.h"
-#include "csr2tile.h"
-#include "tilespgemm-cuda.h"
-#include "spgemm-cpu.h"
-#include "tile2csr.h"
-#include "spgemm_serialref_spa_new.h"
-#include "spgemm_cu.h"
+#include "tilespgemm/common.h"
+#include "tilespgemm/mmio_highlevel.hpp"
+#include "tilespgemm/utils.hpp"
+#include "tilespgemm/utils_cuda_scan.cuh"
+#include "tilespgemm/spgemm_nsparse_kernel.cuh"
+#include "tilespgemm/csr2tile.hpp"
+#include "tilespgemm/tilespgemm-cuda.cuh"
+#include "tilespgemm/spgemm-cpu.hpp"
+#include "tilespgemm/tile2csr.hpp"
+#include "tilespgemm/spgemm_serialref_spa_new.hpp"
+// #include "tilespgemm/spgemm_cu.h"
 
 int main(int argc, char ** argv)
 {
 
-	if (argc < 6)
+    if (argc < 6)
     {
         printf("Run the code by './test -d 0 -aat 0 matrix.mtx'.\n");
         return 0;
     }
-	
+
     printf("--------------------------------!!!!!!!!------------------------------------\n");
     
     int device_id = 0;
@@ -51,7 +51,7 @@ int main(int argc, char ** argv)
     cudaGetDeviceProperties(&deviceProp, device_id);
 
     // Set aside 50% of L2 cache for persisting accesses 
-    size_t size = min( int(deviceProp.l2CacheSize * 0.80) , deviceProp.persistingL2CacheMaxSize );
+    size_t size = std::min( int(deviceProp.l2CacheSize * 0.80) , deviceProp.persistingL2CacheMaxSize );
     cudaDeviceSetLimit( cudaLimitPersistingL2CacheSize, size); 
 
     printf("---------------------------------------------------------------\n");
@@ -322,10 +322,10 @@ tile2csr(matrixC);
     int *csrColIdxC_golden = matrixC->columnindex;
     MAT_VAL_TYPE *csrValC_golden = matrixC->value;
 
-    spgemm_cu(matrixA->m, matrixA->n, matrixA->nnz, matrixA->rowpointer, matrixA->columnindex, matrixA->value,
-              matrixB->m, matrixB->n, matrixB->nnz, matrixB->rowpointer, matrixB->columnindex, matrixB->value,
-              mC, nC, nnzC_golden, csrRowPtrC_golden, csrColIdxC_golden, csrValC_golden,
-              check_result, nnzCub, &nnzC, &compression_rate1, &time_cusparse, &gflops_cusparse);
+    // spgemm_cu(matrixA->m, matrixA->n, matrixA->nnz, matrixA->rowpointer, matrixA->columnindex, matrixA->value,
+    //           matrixB->m, matrixB->n, matrixB->nnz, matrixB->rowpointer, matrixB->columnindex, matrixB->value,
+    //           mC, nC, nnzC_golden, csrRowPtrC_golden, csrColIdxC_golden, csrValC_golden,
+    //           check_result, nnzCub, &nnzC, &compression_rate1, &time_cusparse, &gflops_cusparse);
     printf("---------------------------------------------------------------\n");
 
 #endif

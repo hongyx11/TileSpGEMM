@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "common.h"
+#include "utils.hpp"
 void Tile_csr_to_csr_PTR(unsigned char *Tile_csr_Ptr,
                          MAT_VAL_TYPE *Tile_csr_Val,
                          int tilennz,

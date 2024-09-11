@@ -1,9 +1,6 @@
-#ifndef _SPGEMM_PARALLELREF_NEW_
-#define _SPGEMM_PARALLELREF_NEW_
-
 #include <stdbool.h>
-#include "common.h"
-#include "utils.h"
+#include "tilespgemm/common.h"
+#include "tilespgemm/utils.hpp"
 void spgemm_spa(        const int           *d_csrRowPtrA,
                         const int           *d_csrColIdxA,
                         const MAT_VAL_TYPE    *d_csrValA,
@@ -103,7 +100,5 @@ void spgemm_spa(        const int           *d_csrRowPtrA,
     }
 
 }
-
-#endif
 
 
