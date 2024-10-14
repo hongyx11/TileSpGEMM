@@ -15,7 +15,7 @@ string(APPEND CMCAKE_C_FLAGS " -fopenmp ")
 string(APPEND CMCAKE_CXX_FLAGS " -fopenmp ")
 
 # AcSpGEMM Library
-add_library(tileSpGEMM
+add_library(tileSpGEMM 
     src/utils.cpp
     src/spgemm-cpu.cpp
     src/spgemm_serialref_spa_new.cpp
